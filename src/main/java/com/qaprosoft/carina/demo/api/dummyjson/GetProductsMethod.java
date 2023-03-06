@@ -9,7 +9,7 @@ import com.qaprosoft.carina.core.foundation.api.http.HttpResponseStatusType;
 import com.zebrunner.carina.utils.Configuration;
 
 @Endpoint(url = "${base_url}/products/${id}", methodType = HttpMethodType.GET)
-@ResponseTemplatePath(path = "api/dummy_json/products/rs.json")
+@ResponseTemplatePath(path = "api/dummy_json/products/_get/rs.json")
 @SuccessfulHttpStatus(status = HttpResponseStatusType.OK_200)
 public class GetProductsMethod extends AbstractApiMethodV2 {
     
