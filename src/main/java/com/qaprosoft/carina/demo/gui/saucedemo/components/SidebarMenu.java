@@ -7,7 +7,7 @@ import com.qaprosoft.carina.demo.gui.saucedemo.pages.LoginPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
-public class DropDownMenu extends AbstractUIObject {
+public class SidebarMenu extends AbstractUIObject {
     @FindBy(id = "inventory_sidebar_link")
     private ExtendedWebElement inventoryLink;
 
@@ -16,14 +16,13 @@ public class DropDownMenu extends AbstractUIObject {
 
     @FindBy(id = "logout_sidebar_link")
     private ExtendedWebElement logoutLink;
-
     @FindBy(id = "reset_sidebar_link")
     private ExtendedWebElement resetLink;
 
     @FindBy(xpath = ".//button[contains(@id, 'react-burger-cross-btn')]")
     private ExtendedWebElement closeMenuButton;
 
-    public DropDownMenu(WebDriver driver) {
+    public SidebarMenu(WebDriver driver) {
         super(driver);
         setPageAbsoluteURL("https://www.saucedemo.com");
     }
@@ -56,4 +55,8 @@ public class DropDownMenu extends AbstractUIObject {
     public ExtendedWebElement getAllItemsButton() {
         return inventoryLink;
     }
+    public ExtendedWebElement getResetLink() {
+        return resetLink;
+    }
+
 }

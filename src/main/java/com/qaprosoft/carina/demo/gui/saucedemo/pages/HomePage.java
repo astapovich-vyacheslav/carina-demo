@@ -2,7 +2,7 @@ package com.qaprosoft.carina.demo.gui.saucedemo.pages;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractPage;
-import com.qaprosoft.carina.demo.gui.saucedemo.components.DropDownMenu;
+import com.qaprosoft.carina.demo.gui.saucedemo.components.SidebarMenu;
 import com.qaprosoft.carina.demo.gui.saucedemo.components.SortingMenu;
 import com.qaprosoft.carina.demo.gui.saucedemo.components.Item;
 import org.openqa.selenium.WebDriver;
@@ -31,9 +31,9 @@ public class HomePage extends AbstractPage {
         setPageAbsoluteURL("https://www.saucedemo.com/inventory.html");
     }
 
-    public DropDownMenu openMenu() {
+    public SidebarMenu openMenu() {
         dropDownMenu.click();
-        return new DropDownMenu(driver);
+        return new SidebarMenu(driver);
     }
 
     public boolean isItemsPresent() {

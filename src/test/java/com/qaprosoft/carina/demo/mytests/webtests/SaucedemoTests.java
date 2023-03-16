@@ -1,18 +1,21 @@
 package com.qaprosoft.carina.demo.mytests.webtests;
 
 import com.qaprosoft.carina.core.foundation.IAbstractTest;
-import com.qaprosoft.carina.demo.gui.saucedemo.components.DropDownMenu;
+import com.qaprosoft.carina.demo.gui.saucedemo.components.SidebarMenu;
 import com.qaprosoft.carina.demo.gui.saucedemo.components.SortingMenu;
 import com.qaprosoft.carina.demo.gui.saucedemo.components.Item;
 import com.qaprosoft.carina.demo.gui.saucedemo.pages.*;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+//import io.github.bionigarcia.wdm.WebDriverManager;
 
 import java.lang.invoke.MethodHandles;
 
@@ -21,10 +24,11 @@ public class SaucedemoTests implements IAbstractTest {
 
     @Test
     public void testLoginWithWrongCredentials () {
-        WebDriver driver = new ChromeDriver();
+        WebDriverManager.chromedriver().setup();
+        WebDriver driver = new ChromeDriver(new ChromeOptions().addArguments("--remote-allow-origins=*"));
         LoginPage loginPage = new LoginPage(driver);
 
-        LOGGER.info("Started opening page");
+        LOGGER.info("Opening page");
         loginPage.open();
         Assert.assertTrue(loginPage.isPageOpened(), "Login page is not opened");
 
@@ -53,9 +57,9 @@ public class SaucedemoTests implements IAbstractTest {
         Assert.assertTrue(homePage.isPageOpened(), "Login failed");
 
         LOGGER.info("Logging out");
-        DropDownMenu dropDownMenu = homePage.openMenu();
-        homePage.waitUntil(ExpectedConditions.elementToBeClickable(dropDownMenu.getLogoutButton().getElement()), 10);
-        loginPage = dropDownMenu.logout();
+        SidebarMenu sidebarMenu = homePage.openMenu();
+        homePage.waitUntil(ExpectedConditions.elementToBeClickable(sidebarMenu.getLogoutButton().getElement()), 10);
+        loginPage = sidebarMenu.logout();
         Assert.assertTrue(loginPage.isPageOpened(), "Logout failed");
 
         driver.close();
@@ -120,7 +124,7 @@ public class SaucedemoTests implements IAbstractTest {
 
         LOGGER.info("Return to the home page");
         homePage = itemPage.backToHomePage();
-        Assert.assertTrue(homePage.isPageOpened(), "Returning to the main page failed.");
+        Assert.assertTrue(homePage.isPageOpened(), "Returning to the main page failed");
 
         driver.close();
     }
@@ -146,44 +150,44 @@ public class SaucedemoTests implements IAbstractTest {
         homePage.getAllItems().forEach(a -> LOGGER.info(a.getItemName()));
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(homePage.getAllItems().get(0).getItemName(), "Sauce Labs Backpack",
-                "Something wrong with sort.");
+                "Sorting doesn't work");
         softAssert.assertEquals(homePage.getAllItems().get(1).getItemName(), "Sauce Labs Bike Light",
-                "Something wrong with sort.");
+                "Sorting doesn't work");
         softAssert.assertEquals(homePage.getAllItems().get(2).getItemName(), "Sauce Labs Bolt T-Shirt",
-                "Something wrong with sort.");
+                "Sorting doesn't work");
 
         LOGGER.info("sorting Z to A");
         sortingMenu = homePage.clickSort();
         homePage = sortingMenu.sortFromZtoA();
         homePage.getAllItems().forEach(a -> LOGGER.info(a.getItemName()));
         softAssert.assertEquals(homePage.getAllItems().get(0).getItemName(), "Test.allTheThings() T-Shirt (Red)",
-                "Something wrong with sort.");
+                "Sorting doesn't work");
         softAssert.assertEquals(homePage.getAllItems().get(1).getItemName(), "Sauce Labs Onesie",
-                "Something wrong with sort.");
+                "Sorting doesn't work");
         softAssert.assertEquals(homePage.getAllItems().get(2).getItemName(), "Sauce Labs Fleece Jacket",
-                "Something wrong with sort.");
+                "Sorting doesn't work");
 
         LOGGER.info("sorting lower price to higher price");
         sortingMenu = homePage.clickSort();
         homePage = sortingMenu.sortFromLowToHigh();
         homePage.getAllItems().forEach(a -> LOGGER.info(a.getItemName() + " = " + a.getItemPrice()));
         softAssert.assertEquals(homePage.getAllItems().get(0).getItemPrice(), "$7.99",
-                "Something wrong with sort.");
+                "Sorting doesn't work");
         softAssert.assertEquals(homePage.getAllItems().get(1).getItemPrice(), "$9.99",
-                "Something wrong with sort.");
+                "Sorting doesn't work");
         softAssert.assertEquals(homePage.getAllItems().get(2).getItemPrice(), "$15.99",
-                "Something wrong with sort.");
+                "Sorting doesn't work");
 
         LOGGER.info("sorting higher price to lower price");
         sortingMenu = homePage.clickSort();
         homePage = sortingMenu.sortFromHighToLow();
         homePage.getAllItems().forEach(a -> LOGGER.info(a.getItemName() + " = " + a.getItemPrice()));
         softAssert.assertEquals(homePage.getAllItems().get(0).getItemPrice(), "$49.99",
-                "Something wrong with sort.");
+                "Sorting doesn't work");
         softAssert.assertEquals(homePage.getAllItems().get(1).getItemPrice(), "$29.99",
-                "Something wrong with sort.");
+                "Sorting doesn't work");
         softAssert.assertEquals(homePage.getAllItems().get(2).getItemPrice(), "$15.99",
-                "Something wrong with sort.");
+                "Sorting doesn't work");
         softAssert.assertAll();
 
         driver.close();
@@ -204,13 +208,13 @@ public class SaucedemoTests implements IAbstractTest {
         HomePage homePage = loginPage.login();
         Assert.assertTrue(homePage.isPageOpened(), "Login failed.");
 
-        DropDownMenu dropDownMenu = homePage.openMenu();
-        homePage.waitUntil(ExpectedConditions.elementToBeClickable(dropDownMenu.getAllItemsButton().getElement()), 10);
-        dropDownMenu.openAllItems();
+        SidebarMenu sidebarMenu = homePage.openMenu();
+        homePage.waitUntil(ExpectedConditions.elementToBeClickable(sidebarMenu.getAllItemsButton().getElement()), 10);
+        sidebarMenu.openAllItems();
         Assert.assertTrue(homePage.isPageOpened(), "Failed when try to open All Item page.");
 
-        dropDownMenu.openAboutPage();
-        Assert.assertEquals(dropDownMenu.getDriver().getCurrentUrl(), "https://saucelabs.com/",
+        sidebarMenu.openAboutPage();
+        Assert.assertEquals(sidebarMenu.getDriver().getCurrentUrl(), "https://saucelabs.com/",
                 "Failed when try to open About page.");
 
         loginPage.open();
@@ -221,9 +225,10 @@ public class SaucedemoTests implements IAbstractTest {
         homePage.selectItem("Sauce Labs Bike Light").addItemToCart();
         Assert.assertEquals(homePage.getItemsCountCart(), "1", "Something wrong with filling cart.");
 
-        dropDownMenu = homePage.openMenu();
-        dropDownMenu.openResetLink();
-        homePage = dropDownMenu.closeMenu();
+        sidebarMenu = homePage.openMenu();
+        sidebarMenu.waitUntil(ExpectedConditions.elementToBeClickable(sidebarMenu.getResetLink().getElement()), 10);
+        sidebarMenu.openResetLink();
+        homePage = sidebarMenu.closeMenu();
 
         Assert.assertFalse(homePage.isItemsPresent(), "Cart is not empty.");
 
