@@ -24,6 +24,9 @@ import java.time.format.DateTimeFormatter;
 
 public class TestlabWTTests {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+    private static final String NAME = "MyName";
+    private static final int HEIGHT_OUT_OF_LIMIT = 500;
+    private static final int WEIGHT_OUT_OF_LIMIT = 1000;
 
     @Test
     public static void ContainsWordsTest() {
@@ -78,7 +81,7 @@ public class TestlabWTTests {
         mainPage.open();
         Assert.assertTrue(mainPage.isPageOpened(), "Page not opened");
 
-        mainPage.enterName("MyName");
+        mainPage.enterName(NAME);
         mainPage.enterHeight(50);
         mainPage.enterWeight(3);
         mainPage.clickMale();
@@ -119,9 +122,9 @@ public class TestlabWTTests {
         mainPage.open();
         Assert.assertTrue(mainPage.isPageOpened(), "Page not opened");
 
-        mainPage.enterWeight(1000);
-        mainPage.enterHeight(500);
-        mainPage.enterName("MyName");
+        mainPage.enterWeight(WEIGHT_OUT_OF_LIMIT);
+        mainPage.enterHeight(HEIGHT_OUT_OF_LIMIT);
+        mainPage.enterName(NAME);
         mainPage.clickMale();
         mainPage.clickSubmit();
 
