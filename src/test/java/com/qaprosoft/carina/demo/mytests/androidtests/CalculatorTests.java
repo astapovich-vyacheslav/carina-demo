@@ -10,10 +10,12 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.Capabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.lang.invoke.MethodHandles;
@@ -30,7 +32,6 @@ public class CalculatorTests implements IAbstractTest, IMobileUtils {
     @BeforeClass
     public static void setUp() {
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "PIXEL 2 API 30 2");
         capabilities.setCapability(MobileCapabilityType.APP, "D:\\JavaTestAutomation\\androidapps\\Calculator_8.4 (503542421)_Apkpure.apk");
         try {
             driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
@@ -39,6 +40,7 @@ public class CalculatorTests implements IAbstractTest, IMobileUtils {
             LOGGER.error(e.getMessage());
         }
 
+
         ZERO_DIVISION = R.TESTDATA.get("zero_division");
         FORMAT_ERROR = R.TESTDATA.get("format_error");
         NEGATIVE_SQRT = R.TESTDATA.get("negative_sqrt");
@@ -46,6 +48,9 @@ public class CalculatorTests implements IAbstractTest, IMobileUtils {
     @Test
     public void testButtons() {
         MainPage mainPage = new MainPage(driver);
+        mainPage.getClearButton().click();
+        Assert.assertTrue(mainPage.getPreview().getText().isEmpty(), "Clear button error");
+        Assert.assertTrue(mainPage.getFormula().getText().isEmpty(), "Clear button error");
         int i = 0;
         String cmpString = "";
         for (WebElement k:
@@ -60,6 +65,9 @@ public class CalculatorTests implements IAbstractTest, IMobileUtils {
     @Test
     public void testOperations() {
         MainPage mainPage = new MainPage(driver);
+        mainPage.getClearButton().click();
+        Assert.assertTrue(mainPage.getPreview().getText().isEmpty(), "Clear button error");
+        Assert.assertTrue(mainPage.getFormula().getText().isEmpty(), "Clear button error");
         //Addition
         mainPage.getKey2().click();
         mainPage.getAddOp().click();
@@ -88,8 +96,11 @@ public class CalculatorTests implements IAbstractTest, IMobileUtils {
     }
     @Test
     public void testErrorInput() {
-        //zero division test
         MainPage mainPage = new MainPage(driver);
+        mainPage.getClearButton().click();
+        Assert.assertTrue(mainPage.getPreview().getText().isEmpty(), "Clear button error");
+        Assert.assertTrue(mainPage.getFormula().getText().isEmpty(), "Clear button error");
+        //zero division test
         mainPage.getKey1().click();
         mainPage.getDivOp().click();
         mainPage.getKey0().click();
@@ -121,6 +132,10 @@ public class CalculatorTests implements IAbstractTest, IMobileUtils {
     @Test
     public void testOperationsOrder() {
         MainPage mainPage = new MainPage(driver);
+        mainPage.getClearButton().click();
+        Assert.assertTrue(mainPage.getPreview().getText().isEmpty(), "Clear button error");
+        Assert.assertTrue(mainPage.getFormula().getText().isEmpty(), "Clear button error");
+
         mainPage.getKey2().click();
         mainPage.getAddOp().click();
         mainPage.getKey3().click();
@@ -137,6 +152,10 @@ public class CalculatorTests implements IAbstractTest, IMobileUtils {
     @Test
     public void testHistory() {
         MainPage mainPage = new MainPage(driver);
+        mainPage.getClearButton().click();
+        Assert.assertTrue(mainPage.getPreview().getText().isEmpty(), "Clear button error");
+        Assert.assertTrue(mainPage.getFormula().getText().isEmpty(), "Clear button error");
+
         mainPage.getKey7().click();
         mainPage.getAddOp().click();
         mainPage.getKey3().click();
@@ -148,5 +167,7 @@ public class CalculatorTests implements IAbstractTest, IMobileUtils {
         HistoryPage historyPage = optionsMenu.clickOnHistory();
         Assert.assertTrue(historyPage.allElementsPresent());
         Assert.assertEquals(historyPage.getHistoryFormula().getText(), "7+3", "History update error");
+        historyPage.getBackButton().click();
+        Assert.assertTrue(mainPage.allElementsPresent(), "Return button error");
     }
 }

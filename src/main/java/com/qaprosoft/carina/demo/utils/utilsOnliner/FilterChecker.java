@@ -6,8 +6,8 @@ import java.util.List;
 
 public class FilterChecker {
     public static boolean isSortedByPriceAscending(List<ExtendedWebElement> list) {
-        for (int i = 1; i < list.size(); i++) {
-            if (parsePrice(list.get(i).getText()) < parsePrice(list.get(i - 1).getText())) {
+        for (int i = 0; i < list.size() - 1; i++) {
+            if (parsePrice(list.get(i + 1).getText()) < parsePrice(list.get(i).getText())) {
                 return false;
             }
         }

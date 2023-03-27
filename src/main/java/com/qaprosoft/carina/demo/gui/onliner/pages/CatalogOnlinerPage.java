@@ -156,4 +156,44 @@ public class CatalogOnlinerPage extends AbstractPage {
     public ExtendedWebElement getProductList() {
         return productList;
     }
+
+    public ExtendedWebElement getItemMenuComputerAndNetwork() {
+        return itemMenuComputerAndNetwork;
+    }
+
+    public ExtendedWebElement getItemMenuElectronics() {
+        return itemMenuElectronics;
+    }
+
+    public List<ExtendedWebElement> getMenuItemElementList() {
+        return menuItemElementList;
+    }
+
+    public ExtendedWebElement getItemMenuLaptop() {
+        return itemMenuLaptop;
+    }
+
+    public ExtendedWebElement getMobilePhonesAndAccessories() {
+        return mobilePhonesAndAccessories;
+    }
+
+    public ExtendedWebElement getLaptopLink() {
+        return laptopLink;
+    }
+
+    public ExtendedWebElement getLenovoIdeaPadLaptop() {
+        return lenovoIdeaPadLaptop;
+    }
+
+    public ExtendedWebElement getLaptopName() {
+        return laptopName;
+    }
+
+    public ExtendedWebElement getLaptopPrice() {
+        return laptopPrice;
+    }
+
+    public ExtendedWebElement getSortingMenuElement() {
+        return sortingMenuElement;
+    }
 }

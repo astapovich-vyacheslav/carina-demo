@@ -98,14 +98,19 @@ public class OnlinerTests {
         mainPage.open();
         Assert.assertTrue(mainPage.isCatalogPresent(), "Catalog is not found");
         CatalogOnlinerPage catalogOnlinerPage = mainPage.clickOnCatalog();
-        Assert.assertTrue(catalogOnlinerPage.isElectronicsMenuPresent(), "Electronics menu not found");
+        Assert.assertTrue(catalogOnlinerPage.isElectronicsMenuPresent(), "Electronics menu is not found");
         catalogOnlinerPage.clickElectronicsMenu();
+        Assert.assertTrue(catalogOnlinerPage.getMobilePhonesAndAccessories().isElementPresent(), "Mobile phones and accessories are not found");
         catalogOnlinerPage.mobilePhonesAndAccessoriesClick();
         catalogOnlinerPage.waitUntil(ExpectedConditions.elementToBeClickable(catalogOnlinerPage.getSmartphonesLink().getElement()), 10);
+        Assert.assertTrue(catalogOnlinerPage.getSmartphonesLink().isElementPresent(), "Smartphones link is not found");
         catalogOnlinerPage.clickOnSmartphonesLink();
+        Assert.assertTrue(catalogOnlinerPage.getSortingMenuElement().isElementPresent(), "Sorting menu is not found");
         SortingMenu sortingMenu = catalogOnlinerPage.ClickOnSortingMenuElement();
+        Assert.assertTrue(sortingMenu.getCheaperButton().isElementPresent(), "Sorting by price ascending button is not found");
         sortingMenu.cheaperButtonClick();
         Assert.assertTrue(FilterChecker.isSortedByPriceAscending(catalogOnlinerPage.getPrices()), "Products are not sorted correctly");
+        driver.close();
     }
 
     @Test
@@ -140,11 +145,15 @@ public class OnlinerTests {
         CatalogOnlinerPage catalogOnlinerPage = mainPage.clickOnCatalog();
         Assert.assertTrue(catalogOnlinerPage.isElectronicsMenuPresent(), "Electronics menu not found");
         catalogOnlinerPage.clickElectronicsMenu();
+        Assert.assertTrue(catalogOnlinerPage.getMobilePhonesAndAccessories().isElementPresent(), "Mobile phones and accessories are not found");
         catalogOnlinerPage.mobilePhonesAndAccessoriesClick();
         catalogOnlinerPage.waitUntil(ExpectedConditions.elementToBeClickable(catalogOnlinerPage.getSmartphonesLink().getElement()), 10);
+        Assert.assertTrue(catalogOnlinerPage.getSmartphonesLink().isElementPresent(), "Smartphones link is not found");
         catalogOnlinerPage.clickOnSmartphonesLink();
         catalogOnlinerPage.waitUntil(ExpectedConditions.elementToBeClickable(catalogOnlinerPage.getProductList().getElement()), 10);
+        Assert.assertFalse(catalogOnlinerPage.getToComparisonLabels().isEmpty(), "Smartphones link is not found");
         catalogOnlinerPage.addFirstToComparison();
         Assert.assertEquals(catalogOnlinerPage.getInComparison().getText(), "1 товар", "Adding to comparison error");
+        driver.close();
     }
 }

@@ -1,0 +1,4 @@
+{
+  "fact": {"type": "string"},
+  "length": {"type": "integer"}
+}

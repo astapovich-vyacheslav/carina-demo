@@ -8,11 +8,17 @@ import org.openqa.selenium.WebDriver;
 public class HistoryPage extends AbstractPage {
     @AndroidFindBy(id = "com.google.android.calculator:id/history_formula")
     private ExtendedWebElement historyFormula;
+    @AndroidFindBy(xpath = "//android.widget.ImageButton[@content-desc=\"Navigate up\"]")
+    private ExtendedWebElement backButton;
     public HistoryPage(WebDriver driver) {
         super(driver);
     }
 
     public ExtendedWebElement getHistoryFormula() {
         return historyFormula;
+    }
+
+    public ExtendedWebElement getBackButton() {
+        return backButton;
     }
 }

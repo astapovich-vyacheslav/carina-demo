@@ -14,4 +14,8 @@ public class SortingMenu extends AbstractUIObject {
     public void cheaperButtonClick() {
         cheaperButton.click();
     }
+
+    public ExtendedWebElement getCheaperButton() {
+        return cheaperButton;
+    }
 }
